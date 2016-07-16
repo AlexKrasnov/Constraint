@@ -2,5 +2,13 @@
 
 void main()
 {
-	setlocale(LC_ALL, "Rus");
+	try
+	{
+		setlocale(LC_ALL, "Rus");
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+
 }
