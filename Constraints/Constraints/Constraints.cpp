@@ -78,3 +78,22 @@ void Hyperbola::Output()
 	cout << "(x-" << x0 << ")^2/" << a * a << "- (y - "
 		<< y0 << ")^2/" << b * b;
 }
+
+//-------------------------------------------------------------
+
+Parabola:: Parabola(double _p, double _y0) : p(_p), y0(_y0) {}
+
+double Parabola::Calculate(Point pt)
+{
+	return (pt.y - y0) * (pt.y - y0) - 2 * p * pt.x;
+}
+
+void Parabola::Input()
+{
+	cin >> p >> y0;
+}
+
+void Parabola::Output()
+{
+	cout << "(y-" << y0 << ")^2" << " - 2*" << p << "*x";
+}
