@@ -13,7 +13,7 @@ class Function
 {
 public:
 	// чисто виртуальный метод вычисления функции
-	virtual double Сalculate(Point) = 0;
+	virtual double Calculate (Point) = 0;
 	// чисто виртуальный метод ввода параметров функции
 	virtual void Input() = 0;
 	// чисто виртуальный метод вывода функции на печать
@@ -99,3 +99,24 @@ public:
 	// вывода на печать
 	void Output();
 };
+
+// перечисление для определения типа ограничения
+// le – <=, ge – >=, e – =, l – <, g – >, n – <>
+typedef enum {le, ge, e, l, g, n} type_inequation;
+
+// класс, определяющий ограничение
+class Constraint
+{
+	Function* function; // указатель на объект функции в левой части ограничения
+	double b; // правая часть
+	type_inequation type; // тип ограничения
+public:
+	Constraint(); // конструктор класса
+	bool IsExecute(Point); // метод проверки выполнения ограничения
+	bool IsOnBound(Point); // метод проверки выполнения равенства
+	// f(x,y) = b для ограничений типа "<=", ">=", "="
+	// дружественные функции ввода, вывода
+	friend ostream& operator << (ostream&, Constraint&);
+	friend istream& operator >> (istream&, Constraint&);
+};
+
