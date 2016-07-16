@@ -195,3 +195,50 @@ bool Constraint::IsOnBound(Point pt)
 	if (val == b) return true;
 	return false;
 }
+
+//-------------------------------------------------------------
+
+// конструктор класса «Множество точек на плоскости»
+// с заданным количеством ограничений
+Set::Set(int n1)
+{
+	n = n1;
+	constraints = new Constraint [n];
+}
+// деструктор класса «Множество точек на плоскости»
+Set::~Set()
+{
+	delete [] constraints;
+}
+// метод проверки, принадлежит ли точка множеству
+bool Set::Belongs(Point pt)
+{
+	// точка не принадлежит множеству, если не
+	// выполняется хотя бы одно из ограничений,
+	// определяющих множество
+	for(int i = 0; i < n; i++)
+		if (!constraints[i].IsExecute(pt))
+			return false;
+	return true;
+}
+// метод проверки, лежит ли точка на границе множества
+bool Set::IsOnBound(Point pt)
+{
+	// точка лежит на границе, если выполняются все
+	// ограничения и хотя бы одно из них – как равенство
+	if (Belongs(pt))
+		for(int i = 0; i < n; i++)
+			if (constraints[i].IsOnBound(pt))
+				return true;
+	return false;
+}
+// функция вывода системы ограничений,
+// определяющих множество
+ostream& operator << (ostream& out, Set& set)
+{
+	for(int i = 0; i < set.n; i++)
+		out << set.constraints[i];
+	return out;
+}
+
+//------------------------------------------------------------
