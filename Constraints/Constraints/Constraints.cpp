@@ -107,7 +107,11 @@ istream& operator >> (istream& in, Constraint& ob)
 	// ввод типа ограничения
 	while(true)
 	{
-		cout << "Линейная - 1, Эллиптическая - 2, Гиперболическая - 3, Параболическая - 4";
+		cout << "Введите вид функции: " << endl;
+		cout << "Линейная - 1" << endl;
+		cout << "Эллиптическая - 2" << endl;
+		cout << "Гиперболическая - 3" << endl;
+		cout << "Параболическая - 4" << endl;
 		in >> choice;
 		if(choice >= 1 && choice <= 4) break;
 	}
@@ -115,28 +119,23 @@ istream& operator >> (istream& in, Constraint& ob)
 	// в зависимости от введенного типа
 	switch(choice)
 	{
-	case 1:
-		ob.function = new Line(); break;
-	case 2:
-		ob.function = new Ellipse(); break;
-	case 3:
-		ob.function = new Hyperbola(); break;
-	case 4:
-		ob.function = new Parabola(); break;
+	case 1: ob.function = new Line(); break;
+	case 2: ob.function = new Ellipse(); break;
+	case 3: ob.function = new Hyperbola(); break;
+	case 4: ob.function = new Parabola(); break;
 	}
 	// ввод параметров создаваемой функции
 	ob.function->Input();
 	// ввод вида ограничения
 	while(true)
 	{
+		cout << "Введите вид ограничения: " << endl;
 		cout << "<= - 0, >= - 1, = - 2, < - 3,> - 4, <> - 5" << endl;
 		in >> choice;
-		if(choice >= 0 && choice <= 5)
-			break;
+		if(choice >= 0 && choice <= 5) break;
 	}
 	ob.type = (type_inequation) choice;
-	// ввод правой части
-	in >> ob.b;
+	in >> ob.b; // ввод правой части
 	return in;
 }
 // конструктор ограничения – запрашивает ввод
